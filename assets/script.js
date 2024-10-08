@@ -21,7 +21,7 @@ const slides = [
 const bannerImg = document.querySelector('.banner-img');
 const bannerText = document.querySelector('#banner p');
 
-//Slide actuelle
+//Initialisation de slide actuelle
 let currentSlide = 0;
 
 //Selection de toutes les slides
@@ -37,36 +37,35 @@ const right = document.querySelector('.arrow_right');
 
 // Affichage de la slide actuelle
 function showSlide(index) {
-	console.log('Image source:', slides[index].image);
-	bannerImg.src = slides[index].image;
-	bannerText.innerHTML = slides[index].tagLine;
+	bannerImg.src = slides[index].image; //Modifie la source de l'image de la bannière
+	bannerText.innerHTML = slides[index].tagLine; //MAJ le texte de la bannière
 
-	updateDots();
+	updateDots(); //MAJ des dots en fonction de la slide
 }
 
 
 //EventListeners pour la flèche gauche
 left.addEventListener('click', function () {
-	if (currentSlide === 0) {
-		currentSlide = numberOfSlide - 1;
+	if (currentSlide === 0) { 
+		currentSlide = numberOfSlide - 1; //Si première, passer à la dernière
 	} else {
-		currentSlide--;
+		currentSlide--; //Sinon revenir à la slide précédente
 	}
 
-	showSlide(currentSlide);
+	showSlide(currentSlide); //Affichage nouvelle slide
 
 });
 
 //EventListeners pour la flèche droite
 right.addEventListener('click', function () {
 	if (currentSlide === numberOfSlide - 1) {
-		currentSlide = 0;
+		currentSlide = 0; // Si dernière, passer à la première
 
 	} else {
-		currentSlide++;
+		currentSlide++; //sinon, slide suivante
 	}
 
-	showSlide(currentSlide);
+	showSlide(currentSlide); // Affichage nouvelle slide
 });
 
 //Dots
@@ -75,28 +74,32 @@ const dotsContainer = document.querySelector(".dots");
 //Création des dots
 function createDots() {
 	for (let i = 0; i < numberOfSlide; i++) {
-		const dot = document.createElement('span');
-		dot.classList.add('dot');
-		// Ajouter un écouteur d'événement à chaque dot pour permettre la navigation en cliquant dessus
-		dot.addEventListener('click', function () {
-			currentSlide = i; // Met à jour l'index de la slide courante
-			showSlide(currentSlide); // Affiche la diapositive correspondante
+		const dot = document.createElement('span'); //Création élément 'span' pour chaque slide
+		dot.classList.add('dot'); //Ajout la class 'dot'
+		
+		dot.addEventListener('click', function () { //Ajout EventListeners pour les dots
+			currentSlide = i; //Quand on clique sur un dot, on arrive sur la slide correspondante
+			showSlide(currentSlide); //Affichage de la slide sélectionné avec le dot
 		});
 
-		dotsContainer.appendChild(dot); 
+		dotsContainer.appendChild(dot); //Ajout dot à l'intérieur du conteneur
 	}
 }
 
-//Ajout des dots
+//MAJ séléction des dots
 function updateDots() {
-	const dots = document.querySelectorAll(".dot");
+	const dots = document.querySelectorAll(".dot"); //Séléction tout les dots
 	dots.forEach((dot, index) => {
-		dot.classList.remove('dot_selected');
+		dot.classList.remove('dot_selected'); // Delete classe "dot_selected" de tous les "dots"
 		if (index === currentSlide) {
-			dot.classList.add('dot_selected');
+			dot.classList.add('dot_selected'); // Add classe "dot_selected" au "dot" correspondant à la slide actuelle
+		
 		}
 	});
 }
 
+//Création dots lors du chargement de la page
 createDots();
+
+//Affichage première slide lors du chargement de la page
 showSlide(currentSlide);
