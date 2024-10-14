@@ -17,7 +17,7 @@ const slides = [
 	}
 ]
 
-//Bannière image 
+//Séléction éléments HTML bannière image + texte
 const bannerImg = document.querySelector('.banner-img');
 const bannerText = document.querySelector('#banner p');
 
@@ -30,7 +30,8 @@ const Allsides = document.querySelectorAll('.slide');
 //Nombre de slides
 const numberOfSlide = slides.length;
 
-//Flèches de navigation
+
+//Selection des flèches de navigation gauche et droite
 const left = document.querySelector('.arrow_left');
 const right = document.querySelector('.arrow_right');
 
@@ -40,16 +41,16 @@ function showSlide(index) {
 	bannerImg.src = slides[index].image; //Modifie la source de l'image de la bannière
 	bannerText.innerHTML = slides[index].tagLine; //MAJ le texte de la bannière
 
-	updateDots(); //MAJ des dots en fonction de la slide
+	updateDots(); //Mise à jour des dots en fonction des slides
 }
 
 
 //EventListeners pour la flèche gauche
 left.addEventListener('click', function () {
 	if (currentSlide === 0) { 
-		currentSlide = numberOfSlide - 1; //Si première, passer à la dernière
+		currentSlide = numberOfSlide - 1; //Si première slide, passer à la dernière
 	} else {
-		currentSlide--; //Sinon revenir à la slide précédente
+		currentSlide--; //sinon, revenir à la slide précédente
 	}
 
 	showSlide(currentSlide); //Affichage nouvelle slide
@@ -59,26 +60,26 @@ left.addEventListener('click', function () {
 //EventListeners pour la flèche droite
 right.addEventListener('click', function () {
 	if (currentSlide === numberOfSlide - 1) {
-		currentSlide = 0; // Si dernière, passer à la première
+		currentSlide = 0; // Si dernière slide, passer à la première
 
 	} else {
-		currentSlide++; //sinon, slide suivante
+		currentSlide++; //sinon, passer à slide suivante
 	}
 
 	showSlide(currentSlide); // Affichage nouvelle slide
 });
 
-//Dots
+//Séléction des éléments du conteneur pour les dots
 const dotsContainer = document.querySelector(".dots");
 
 //Création des dots
 function createDots() {
 	for (let i = 0; i < numberOfSlide; i++) {
-		const dot = document.createElement('span'); //Création élément 'span' pour chaque slide
+		const dot = document.createElement('span'); // Création élément 'span' pour chaque slide
 		dot.classList.add('dot'); //Ajout la class 'dot'
 		
-		dot.addEventListener('click', function () { //Ajout EventListeners pour les dots
-			currentSlide = i; //Quand on clique sur un dot, on arrive sur la slide correspondante
+		dot.addEventListener('click', function () { // Ajout EventListeners pour les dots
+			currentSlide = i; // Quand on clique sur un dot, on arrive sur la slide correspondante
 			showSlide(currentSlide); //Affichage de la slide sélectionné avec le dot
 		});
 
@@ -98,8 +99,11 @@ function updateDots() {
 	});
 }
 
+//(Appel des fonctions)
+
 //Création dots lors du chargement de la page
 createDots();
 
 //Affichage première slide lors du chargement de la page
 showSlide(currentSlide);
+
